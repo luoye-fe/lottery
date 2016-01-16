@@ -19,10 +19,3 @@ button::-moz-focus-inner,input::-moz-focus-inner { padding:0; border:0}
 .clearfix:after,.main_card:after,.eidt_content_list:after{content:'\0020';display:block;height:0;clear:both}.clearfix{*zoom:1}
 .hide{display:none}
 
-
-.staff_list{width: 100%;padding: 50px 0;}
-.staff_list li{width: 100%;font-size: 0;}
-.staff_list li:nth-child(1) span{font-size: 32px;color: #ff5151;line-height: 55px;position: relative;}
-.staff_list li:nth-child(1) .id .sort{display: inline-block;font-size: 16px;padding: 5px;cursor: pointer;position: absolute;top: 50%;-webkit-transform:translateY(-50%);margin-left: 10px;}
-.staff_list li:nth-child(odd){background: #ddd;}
-.staff_list li span{display: inline-block;vertical-align: top;text-align: center;width: 15%;font-size: 16px;line-height: 28px;}
