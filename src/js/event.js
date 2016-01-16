@@ -1,3 +1,10 @@
+/*
+ ************************************************
+ * @author:luoye https://github.com/luoye-fe
+ * @desc:event on/trigger/one/off
+ * @time:2015.01.16
+ ************************************************
+ */
 (function(global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) : global.Event = factory();
 })(this, function() {
