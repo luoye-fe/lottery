@@ -1,0 +1,28 @@
+/* reset */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0}div{-webkit-tap-highlight-color:rgba(0,0,0,0)}input{outline:0;font-size:14px}html,body,form,fieldset,p,div,h1,h2,h3,h4,h5,h6{-webkit-text-size-adjust:none;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+a,input,select,button,textarea{font-family:'Microsoft YaHei',arial,helvetica,sans-serif;}
+a{text-decoration:none; color:#3b3b3b;}
+body{font-family:'Microsoft YaHei',arial,helvetica,sans-serif;-webkit-text-size-adjust:none;-webkit-user-select:none;font-size:14px; background:#f8f8f8;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+img,table{border:0;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+ins{text-decoration:none;}
+del{text-decoration:line-through;}
+select{ background:#fff;}table{border-collapse:collapse;border-spacing:0;}
+.fr{ float:right;}
+.fl{ float:left;}
+button,input[type="button"],input[type="reset"],input[type="submit"] {cursor:pointer;-moz-appearance:none;-webkit-appearance : none ;}
+button::-moz-focus-inner,input::-moz-focus-inner { padding:0; border:0}
+* {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+.clearfix:after,.main_card:after,.eidt_content_list:after{content:'\0020';display:block;height:0;clear:both}.clearfix{*zoom:1}
+.hide{display:none}
+
+
+.staff_list{width: 100%;padding: 50px 0;}
+.staff_list li{width: 100%;font-size: 0;}
+.staff_list li:nth-child(1) span{font-size: 32px;color: #ff5151;line-height: 55px;position: relative;}
+.staff_list li:nth-child(1) .id .sort{display: inline-block;font-size: 16px;padding: 5px;cursor: pointer;position: absolute;top: 50%;-webkit-transform:translateY(-50%);margin-left: 10px;}
+.staff_list li:nth-child(odd){background: #ddd;}
+.staff_list li span{display: inline-block;vertical-align: top;text-align: center;width: 15%;font-size: 16px;line-height: 28px;}
