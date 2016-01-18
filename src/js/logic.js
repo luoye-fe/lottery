@@ -43,3 +43,9 @@ var drawLottery = function(obj) {
 drawLottery({
     type: '0'
 })
+
+
+
+
+
+
