@@ -132,3 +132,9 @@ $('#kashi').click(function() {
         duration: '60000' 
     },'easeInOutCirc')
 })
+
+
+
+
+
+
