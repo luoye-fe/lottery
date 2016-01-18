@@ -15,6 +15,7 @@ module.exports = {
         path: 'dist/',
         filename: '[name].min.js'
     },
+    devtool: 'source-map',
     module: {
         // 加载器配置    
         loaders: [{

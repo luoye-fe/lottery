@@ -19,3 +19,4 @@ button::-moz-focus-inner,input::-moz-focus-inner { padding:0; border:0}
 .clearfix:after,.main_card:after,.eidt_content_list:after{content:'\0020';display:block;height:0;clear:both}.clearfix{*zoom:1}
 .hide{display:none}
 
+
