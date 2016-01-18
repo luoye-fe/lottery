@@ -129,6 +129,6 @@ $('#kashi').click(function() {
     $('.con ul').animate({
         transform: '+=rotateY(-90deg)'
     }, {
-        duration: '60000'
+        duration: '60000' 
     },'easeInOutCirc')
 })
