@@ -24,11 +24,11 @@ module.exports = {
             test: /.js$/,
             loader: 'jsx-loader?harmony'
         }, {
-            test: /.scss$/,
-            loader: 'style!css!sass?sourceMap'
-        }, {
             test: /.(png|jpg)$/,
             loader: 'url-loader?limit=8192'
+        },{
+            test: /.json$/,
+            loader: 'json-loader'
         }]
     },
     // 路径

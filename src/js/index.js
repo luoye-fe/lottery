@@ -1,17 +1,15 @@
-// library
-var $ = require('jquery');
-
-// staff data
-var staff = require('./staff.js');
-
 var Event = require('./event.js');
 
 
-Event.on('choujiang',function(args){
-	console.log(args);
-})
+var logic = require('./logic.js');
 
-Event.trigger('choujiang',{
-	name:'asd',
-	id:'123',
-})
+var show = require('./show.js');
+
+// Event.on('choujiang',function(args){
+// 	console.log(args);
+// })
+
+// Event.trigger('choujiang',{
+// 	name:'asd',
+// 	id:'123',
+// })

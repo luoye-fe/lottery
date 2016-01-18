@@ -1,4 +1,4 @@
-module.exports = [{
+[{
     "rownumber": "1",
     "empName": "柴新原",
     "EMAIL": "xinyuan5@staff.sina.com.cn",

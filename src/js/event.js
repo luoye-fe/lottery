@@ -1,6 +1,6 @@
 /*
  ************************************************
- * @author:luoye https://github.com/luoye-fe
+ * @author:luoye https://github.com/luoye-fe/event.git
  * @desc:event on/trigger/one/off
  * @time:2015.01.16
  ************************************************
