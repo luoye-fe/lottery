@@ -195,8 +195,5 @@ $('.stop').click(function() {
                 $('.message li').eq($('.people').eq(index).index()).html('<div>' + utils.getItem(model[reward].name)[index].empName + '</div><div>' + utils.getItem(model[reward].name)[index].EMPLOYEE_ID + '</div>')
             })
         })
-
     }
-
-
 })
