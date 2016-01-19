@@ -4,7 +4,6 @@ var staff = require('../data/staff.json');
 
 var Event = require('./event.js');
 
-
 var tpl = {
     base: '<li><img src="src/images/xiaolangren.png"></li>',
     staffList: (function() {
@@ -112,3 +111,4 @@ $('.start').click(function(){
 		type:reward
 	})
 })
+
