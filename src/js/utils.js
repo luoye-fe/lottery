@@ -29,12 +29,16 @@ utils.find = function(query, data) {
 
 
 utils.getItem = function(key) {
-    return JSON.parse(localStorage.getItem('key'));
+    return JSON.parse(localStorage.getItem(key));
 }
 
 // value -> string | obj
 utils.setItem = function(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    return localStorage.setItem(key, JSON.stringify(value));
+}
+
+utils.removeItem = function(key) {
+    localStorage.removeItem(key);
 }
 
 

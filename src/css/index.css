@@ -1,140 +1,31 @@
 /* reset */
 
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
     outline: 0
 }
-
 div {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 }
-
 input {
     outline: 0;
     font-size: 14px
 }
-
-html,
-body,
-form,
-fieldset,
-p,
-div,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 {
     -webkit-text-size-adjust: none;
 }
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     display: block;
 }
-
-a,
-input,
-select,
-button,
-textarea {
+a, input, select, button, textarea {
     font-family: 'Microsoft YaHei', arial, helvetica, sans-serif;
 }
-
 a {
     text-decoration: none;
     color: #3b3b3b;
 }
-
 body {
     font-family: 'Microsoft YaHei', arial, helvetica, sans-serif;
     -webkit-text-size-adjust: none;
@@ -142,93 +33,64 @@ body {
     font-size: 14px;
     background: #f8f8f8;
 }
-
-ol,
-ul {
+ol, ul {
     list-style: none;
 }
-
-blockquote,
-q {
+blockquote, q {
     quotes: none;
 }
-
-img,
-table {
+img, table {
     border: 0;
 }
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
+blockquote:before, blockquote:after, q:before, q:after {
     content: '';
     content: none;
 }
-
 ins {
     text-decoration: none;
 }
-
 del {
     text-decoration: line-through;
 }
-
 select {
     background: #fff;
 }
-
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-
 .fr {
     float: right;
 }
-
 .fl {
     float: left;
 }
-
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+button, input[type="button"], input[type="reset"], input[type="submit"] {
     cursor: pointer;
     -moz-appearance: none;
     -webkit-appearance: none;
 }
-
-button::-moz-focus-inner,
-input::-moz-focus-inner {
+button::-moz-focus-inner, input::-moz-focus-inner {
     padding: 0;
     border: 0
 }
-
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
-.clearfix:after,
-.main_card:after,
-.eidt_content_list:after {
+.clearfix:after, .main_card:after, .eidt_content_list:after {
     content: '\0020';
     display: block;
     height: 0;
     clear: both
 }
-
 .clearfix {
     *zoom: 1
 }
-
 .hide {
     display: none
 }
-
 @keyframes change {
     0% {
         background: url(../images/lightning_1.png);
@@ -237,7 +99,6 @@ input::-moz-focus-inner {
         background: url(../images/lightning_2.png);
     }
 }
-
 body {
     background: url(../images/bg.png);
     background-size: cover;
@@ -245,7 +106,6 @@ body {
     width: 100%;
     height: 100%;
 }
-
 .suisui {
     width: 1886px;
     height: 546px;
@@ -256,7 +116,6 @@ body {
     background: url(../images/suipian.png);
     background-size: cover;
 }
-
 .saqian {
     width: 1566px;
     height: 915px;
@@ -265,7 +124,6 @@ body {
     left: 50%;
     margin-left: -783px;
 }
-
 
 /*
 	主要部分
@@ -276,13 +134,11 @@ body {
     position: relative;
     margin: 0px auto;
 }
-
 #main .top {
     width: 1172px;
     height: 250px;
     position: relative;
 }
-
 .zhubiao {
     width: 571px;
     height: 329px;
@@ -291,7 +147,6 @@ body {
     left: 50%;
     margin-left: -285px;
 }
-
 .fubiao {
     width: 484px;
     height: 57px;
@@ -301,7 +156,6 @@ body {
     margin-left: -242px;
     top: 45px;
 }
-
 .other {
     width: 840px;
     height: 72px;
@@ -312,7 +166,6 @@ body {
     top: 150px;
     z-index: 3;
 }
-
 .choujiang_top_bg {
     width: 982px;
     height: 439px;
@@ -322,7 +175,6 @@ body {
     margin-left: -491px;
     top: 80px;
 }
-
 .nianhuichoujiang {
     width: 571px;
     height: 215px;
@@ -333,14 +185,12 @@ body {
     top: 40px;
     z-index: 2;
 }
-
 #main .center {
     width: 1172px;
     height: 613px;
     background: url(../images/choujiang_bg.png);
     position: relative;
 }
-
 .change {
     width: 1157px;
     height: 402px;
@@ -349,7 +199,6 @@ body {
     margin-left: -579px;
     animation: change 0.2s infinite alternate;
 }
-
 
 /*
 	奖项设置
@@ -364,12 +213,10 @@ body {
     top: 20px;
     background: url(../images/bonus_set.png) no-repeat;
 }
-
 .bonus_set .bonus_set_title {
     height: 100%;
     background: url(../images/bonus_set_title.png) no-repeat 35px 10px, url(../images/triangle.png) no-repeat 202px 30px;
 }
-
 .bonus_set ul {
     background: url(../images/bonus_set_bg.png);
     border: 3px solid #ff95a8;
@@ -378,39 +225,31 @@ body {
     position: relative;
     z-index: 10000;
 }
-
 .bonus_set li {
     width: 100%;
     height: 62px;
     background-repeat: no-repeat;
     background-position: 48px 0;
 }
-
 .bonus_set li:nth-child(1) {
     background-image: url(../images/xianjin.png);
     background-position: 35px 0;
 }
-
 .bonus_set li:nth-child(2) {
     background-image: url(../images/nuanxin.png);
 }
-
 .bonus_set li:nth-child(3) {
     background-image: url(../images/sandengjiang.png);
 }
-
 .bonus_set li:nth-child(4) {
     background-image: url(../images/erdengjiang.png);
 }
-
 .bonus_set li:nth-child(5) {
     background-image: url(../images/yidengjiang.png);
 }
-
 .bonus_set li:hover {
     background-color: #fc4f71;
 }
-
 
 /*
 	抽奖
@@ -426,7 +265,6 @@ body {
     top: 82px;
     z-index: 1;
 }
-
 .lottery .list {
     position: relative;
     width: 974px;
@@ -435,7 +273,6 @@ body {
     border-radius: 40px;
     overflow: hidden;
 }
-
 .lottery .list li {
     width: 186px;
     height: 222px;
@@ -443,12 +280,10 @@ body {
     float: left;
     margin-left: 11px;
 }
-
 .lottery .list li:nth-child(1) {
     margin-left: 0;
     background: url(../images/ren.png);
 }
-
 .lottery .group {
     width: 974px;
     height: 48px;
@@ -457,19 +292,15 @@ body {
     left: 16px;
     top: 103px;
 }
-
 .lottery .message {}
-
 .lottery .message li {
     float: left;
     margin-left: 11px;
     color: #f6d021;
 }
-
 .lottery .message li:nth-child(1) {
     margin-left: 0;
 }
-
 .lottery .message li div {
     width: 186px;
     height: 48px;
@@ -478,11 +309,9 @@ body {
     font: 22px/48px "华文仿宋 宋体";
     text-align: center;
 }
-
 .lottery .message li div:nth-child(2) {
     margin-top: 10px;
 }
-
 
 /*
 	开始，暂停按钮
@@ -496,31 +325,25 @@ body {
     left: 50%;
     margin-left: -275px;
 }
-
 .btn li {
     width: 245px;
     height: 73px;
     float: left;
     cursor: pointer;
 }
-
 .start {
     background: url(../images/btn_start.png);
     margin-right: 60px;
 }
-
 .stop {
     background: url(../images/btn_stop.png);
 }
-
 .start:active {
     background-image: url(../images/btn_start_active.png);
 }
-
 .stop:active {
     background-image: url(../images/btn_stop_active.png);
 }
-
 .logo {
     width: 392px;
     height: 33px;
