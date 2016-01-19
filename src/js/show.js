@@ -1,8 +1,11 @@
 var $ = require('jquery');
+var ease = require('./easing.js');
+
+var Event = require('./event.js');
 
 var staff = require('../data/staff.json');
 
-var Event = require('./event.js');
+
 
 var tpl = {
     base: '<li><img src="src/images/xiaolangren.png"></li>',
@@ -11,7 +14,7 @@ var tpl = {
         for (var i = 0; i < staff.length; i++) {
             _current.push('<img class="staff-item" src="' + staff[i].IMAGE + '"/>');
         }
-        return '<li><div class="staff-list">' + _current.join('') + '</div></li>';
+        return '<li class="people"><div class="staff-list">' + _current.join('') + '</div></li>';
     })()
 }
 var createList = function(obj) {
@@ -97,7 +100,7 @@ $('.bonus_set ul li').click(function() {
     var index = $(this).attr('reward');
     rewardListSwtich();
     $('.bonus_set .bonus_set_title').css({
-        'background': 'url(' + model[index]['bg'] + ') no-repeat center'
+        'background': 'url(' + model[index]['bg'] + ') no-repeat center	'
     })
     createList({
         type: index
@@ -105,10 +108,50 @@ $('.bonus_set ul li').click(function() {
     $('.bonus_set_title').attr('reward', index);
 })
 
+var ing = false;
 $('.start').click(function() {
     var reward = $('.bonus_set_title').attr('reward');
-    
-    Event.trigger('start', {
-        type: reward
-    })
+    if (reward !== 'null') {
+        ing = true;
+        Event.trigger('start', {
+            type: reward
+        })
+
+        // var fn = function() {
+        //     $('.people').each(function() {
+        //         $(this).animate({
+        //             'top': '-10878px'
+        //         }, 4000, 'linear', function() {
+        //             $(this).css('top', 0);
+        //             fn();
+        //         });
+        //     })
+
+        // }
+        
+        $('.staff-list').each(function() {
+            $(this).eq(0).animate({
+                'top': '-500px'
+            }, {
+                duration: 500,
+                easing: "linear",
+                step:function(){
+                    console.log("!");
+                },
+                complete: function() {
+                    // if (index == 3) isBegin = false;
+                    console.log("!");
+                }
+            });
+        })
+    }
+
+})
+$('.stop').click(function() {
+    if (ing) {
+        var reward = $('.bonus_set_title').attr('rewar,d');
+        Event.trigger('stop');
+        ing = false;
+    }
+
 })
