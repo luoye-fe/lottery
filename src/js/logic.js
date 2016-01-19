@@ -87,6 +87,3 @@ var drawLottery = function(obj) {
 Event.on('start', function(obj) {
     drawLottery(obj);
 })
-
-
-
