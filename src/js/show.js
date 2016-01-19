@@ -12,7 +12,7 @@ var tpl = {
     staffList: (function() {
         var _current = [];
         for (var i = 0; i < staff.length; i++) {
-            _current.push('<img class="staff-item" src="' + staff[i].IMAGE + '"/>');
+            _current.push('<img staff-id="' + staff[i].EMPLOYEE_ID + '" class="staff-item" src="' + staff[i].IMAGE + '"/>');
         }
         return '<li class="people"><div class="staff-list">' + _current.join('') + '</div></li>';
     })()
@@ -95,7 +95,7 @@ var model = {
         'bg': 'src/images/xianjin.png',
     }
 }
-
+var oneHeight,stage1_num,oneTime,allHeight,len;
 $('.bonus_set ul li').click(function() {
     var index = $(this).attr('reward');
     rewardListSwtich();
@@ -106,9 +106,15 @@ $('.bonus_set ul li').click(function() {
         type: index
     })
     $('.bonus_set_title').attr('reward', index);
+   oneHeight = 222;
+     stage1_num = 20;
+     oneTime = 100;
+     allHeight = parseInt($('.staff-list').css('height')) - oneHeight;
+     len = $('.staff-list').eq(0).children().length;
 })
 
 var ing = false;
+
 $('.start').click(function() {
     var reward = $('.bonus_set_title').attr('reward');
     if (reward !== 'null') {
@@ -128,22 +134,44 @@ $('.start').click(function() {
         //     })
 
         // }
-        
+        //一个人222px，时间为111ms
+        /*
+			先缓冲20个人 ，也就是
+        */
+
         $('.staff-list').each(function() {
-            $(this).eq(0).animate({
-                'top': '-500px'
+            var obj = $(this).eq(0);
+            obj.animate({
+                'top': -stage1_num * oneHeight + 'px'
             }, {
-                duration: 500,
-                easing: "linear",
-                step:function(){
-                    console.log("!");
+                duration: stage1_num * oneTime,
+                easing: "easeInQuad",
+                step: function() {
+                    //console.log("!");
                 },
                 complete: function() {
                     // if (index == 3) isBegin = false;
-                    console.log("!");
+                    //console.log("!");
+                    fn(obj);
                 }
             });
-        })
+        });
+
+        function fn(obj, btn) {
+            //var rest = all - move1;
+
+            if (btn) {
+                var rest = len;
+            } else {
+                var rest = len - stage1_num;
+            }
+            obj.animate({
+                'top': -allHeight + 'px'
+            }, rest * 50, 'linear', function() {
+                obj.css('top', 0);
+                fn(obj, true);
+            })
+        }
     }
 
 })
@@ -153,5 +181,15 @@ $('.stop').click(function() {
         Event.trigger('stop');
         ing = false;
     }
+    $('.staff-list').each(function() {
+        var obj = $(this).eq(0)
+        obj.stop();
+        obj.animate({
+            'top': -allHeight + 'px'
+        }, len * 50, 'linear', function() {
+            obj.css('top', 0);
+            // fn(obj, true);
+        })
+    });
 
 })
