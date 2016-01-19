@@ -278,7 +278,7 @@ body {
     margin-left: 0;
     background: url(../images/ren.png);
 }
-.lottery .list li .staff-list{position: absolute;top: 0;left: 0;-webkit-transition:all linear 0.2s;}
+.lottery .list li .staff-list{position: absolute;top: 0;left: 0;}
 .lottery .list li .staff-list img{display: block;}
 .lottery .group {
     width: 974px;
@@ -331,7 +331,7 @@ body {
 }
 .start {
     background: url(../images/btn_start.png);
-    /*margin-right: 60px;*/
+    margin-right: 30px;
 }
 .stop {
     background: url(../images/btn_stop.png);

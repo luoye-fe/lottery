@@ -2,6 +2,7 @@ var $ = require('jquery');
 var ease = require('./easing.js');
 
 var Event = require('./event.js');
+var utils = require('./utils.js');
 
 var staff = require('../data/staff.json');
 
@@ -78,21 +79,27 @@ $('.bonus_set_title').click(function() {
 var model = {
     '0': {
         'bg': 'src/images/yidengjiang.png',
+        'name':'一等奖'
     },
     '1': {
         'bg': 'src/images/erdengjiang.png',
+        'name':'二等奖'
     },
     '2': {
         'bg': 'src/images/sandengjiang.png',
+        'name':'三等奖'
     },
     '3': {
         'bg': 'src/images/nuanxin1.png',
+        'name':'暖心奖1'
     },
     '4': {
         'bg': 'src/images/nuanxin2.png',
+        'name':'暖心奖2'
     },
     '5': {
         'bg': 'src/images/xianjin.png',
+        'name':'现金红包'
     }
 }
 
@@ -100,16 +107,24 @@ $('.bonus_set ul li').click(function() {
     var index = $(this).attr('reward');
     rewardListSwtich();
     $('.bonus_set .bonus_set_title').css({
-        'background': 'url(' + model[index]['bg'] + ') no-repeat center'
+        'background': 'url(' + model[index]['bg'] + ') no-repeat center '
     })
     createList({
         type: index
     })
     $('.bonus_set_title').attr('reward', index);
+
 })
 
 
 var ing = false;
+
+
+var oneHeight = 222;
+var stage1_num = 20;
+var oneTime = 100;
+var len = staff.length;
+var allHeight = (len - 1) * oneHeight;
 
 $('.start').click(function() {
     var reward = $('.bonus_set_title').attr('reward');
@@ -123,15 +138,53 @@ $('.start').click(function() {
             type: reward
         })
 
-        
+
+        $('.staff-list').each(function() {
+            var obj = $(this);
+            obj.animate({
+                'top': -stage1_num * oneHeight + 'px'
+            }, {
+                duration: stage1_num * oneTime,
+                easing: "easeInQuad",
+                step: function() {},
+                complete: function() {
+                    fn(obj);
+                }
+            });
+        });
+
+        function fn(obj, btn) {
+            if (btn) {
+                var rest = len;
+            } else {
+                var rest = len - stage1_num;
+            }
+            obj.animate({
+                'top': -allHeight + 'px'
+            }, rest * 50, 'linear', function() {
+                obj.css('top', 0);
+                fn(obj, true);
+            })
+        }
     }
 
 })
 
 $('.stop').click(function() {
     if (ing) {
-        var reward = $('.bonus_set_title').attr('rewar,d');
+        var reward = $('.bonus_set_title').attr('reward');
         Event.trigger('stop');
         ing = false;
+
+        $('.staff-list').each(function() {
+            var obj = $(this).eq(0)
+            obj.stop();
+        });
+        for(var i = 0;i < utils.getItem(model[reward].name).length;i++){
+            console.log($('.people').eq(i).find('[staff-id="'+utils.getItem(model[reward].name)[i].EMPLOYEE_ID+'"]'));
+        }
+
     }
+
+
 })
