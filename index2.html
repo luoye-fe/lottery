@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>新浪移动事业部2016年会抽奖</title>
+</head>
+<script src='jq.js'></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+#box {
+    width: 800px;
+    height: 222px;
+    overflow: hidden;
+    position: relative;
+    margin: 100px auto;
+}
+
+.list {}
+
+.list {
+    width: 186px;
+    height: 222px;
+    float: left;
+    margin-left: 20px;
+}
+.col ul{
+    position: absolute;left:0;top:0;width:186px;
+}
+.col li {
+    width: 186px;
+    height: 222px;
+    background: url(src/images/xiaolangren.png);
+
+}
+</style>
+
+<body>
+    <div id='box'>
+        <ul class="list">
+            <li class="col"></li>
+        </ul>
+    </div>
+</body>
+<script>
+var oList = $('.list')[0];
+var aLi = $('.col');
+var oStop = $('#stop')[0];
+
+var aUl = oList.getElementsByTagName('ul')[0];
+
+for (var i = 0; i < aLi.length; i++) {
+    var oUl = document.createElement('ul');
+    for (var j = 0; j < 50; j++) {
+        var oLi = document.createElement('li');
+        oLi.innerHTML = j;
+        oUl.appendChild(oLi);
+
+    }
+    aLi[i].appendChild(oUl);
+}
+var str = $('.list ul').html()
+str += str;
+$('.list ul').html( str )
+
+
+document.onclick = function(){
+    $('.list ul').stop();
+}
+var i = 0;
+
+$('.list ul').animate({
+    'top' : '-500px'
+},1000, 'easeIn', fn);
+function fn() {
+
+    $('.list ul').animate({
+        'top': '-10878px'
+    }, 4000, 'linear', function(){
+        $('.list ul').css('top',0)
+        fn();
+    });
+    
+}
+// setInterval(fn, 16);
+
+</script>
+
+</html>
