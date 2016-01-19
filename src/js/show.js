@@ -44,27 +44,27 @@ var createList = function(obj) {
     }
 }
 
-var rewardListSwtich = function(){
-	if ($('.triangle').hasClass('on')) {
-	    $('.triangle').css({
-	        '-webkit-transform': 'translateY(-50%) rotate(-90deg)'
-	    }).addClass('off').removeClass('on');
-	    $('.bonus_set ul').css({
-	        'height': '0px',
-	        'border-top': 'none',
-	        'border-bottom': 'none'
-	    })
-	} else {
-	    $('.triangle').css({
-	        '-webkit-transform': 'translateY(-50%) rotate(0deg)'
-	    }).addClass('on').removeClass('off');
-	    $('.bonus_set ul').css('display', 'block');
-	    $('.bonus_set ul').css({
-	        'height': '378px',
-	        'border-top': '3px solid #ff95a8',
-	        'border-bottom': '3px solid #ff95a8'
-	    })
-	}
+var rewardListSwtich = function() {
+    if ($('.triangle').hasClass('on')) {
+        $('.triangle').css({
+            '-webkit-transform': 'translateY(-50%) rotate(-90deg)'
+        }).addClass('off').removeClass('on');
+        $('.bonus_set ul').css({
+            'height': '0px',
+            'border-top': 'none',
+            'border-bottom': 'none'
+        })
+    } else {
+        $('.triangle').css({
+            '-webkit-transform': 'translateY(-50%) rotate(0deg)'
+        }).addClass('on').removeClass('off');
+        $('.bonus_set ul').css('display', 'block');
+        $('.bonus_set ul').css({
+            'height': '378px',
+            'border-top': '3px solid #ff95a8',
+            'border-bottom': '3px solid #ff95a8'
+        })
+    }
 }
 
 $('.bonus_set_title').click(function() {
@@ -97,18 +97,18 @@ $('.bonus_set ul li').click(function() {
     var index = $(this).attr('reward');
     rewardListSwtich();
     $('.bonus_set .bonus_set_title').css({
-    	'background':'url('+model[index]['bg']+') no-repeat center'
+        'background': 'url(' + model[index]['bg'] + ') no-repeat center'
     })
     createList({
-    	type:index
+        type: index
     })
-    $('.bonus_set_title').attr('reward',index);
+    $('.bonus_set_title').attr('reward', index);
 })
 
-$('.start').click(function(){
-	var reward = $('.bonus_set_title').attr('reward');
-	Event.trigger('start',{
-		type:reward
-	})
+$('.start').click(function() {
+    var reward = $('.bonus_set_title').attr('reward');
+    
+    Event.trigger('start', {
+        type: reward
+    })
 })
-
