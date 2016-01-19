@@ -159,7 +159,6 @@ $('.start').click(function() {
 
         function fn(obj, btn) {
             //var rest = all - move1;
-
             if (btn) {
                 var rest = len;
             } else {
@@ -175,6 +174,7 @@ $('.start').click(function() {
     }
 
 })
+
 $('.stop').click(function() {
     if (ing) {
         var reward = $('.bonus_set_title').attr('rewar,d');
@@ -184,10 +184,11 @@ $('.stop').click(function() {
     $('.staff-list').each(function() {
         var obj = $(this).eq(0)
         obj.stop();
+        var x = 50;//中奖人的索引
         obj.animate({
-            'top': -allHeight + 'px'
-        }, len * 50, 'linear', function() {
-            obj.css('top', 0);
+            'top': -oneHeight * x + 'px'
+        }, len * 50, 'easeOutQuad', function() {
+           // obj.css('top', 0);
             // fn(obj, true);
         })
     });
