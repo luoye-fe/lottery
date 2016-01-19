@@ -12,7 +12,7 @@ var tpl = {
     staffList: (function() {
         var _current = [];
         for (var i = 0; i < staff.length; i++) {
-            _current.push('<img class="staff-item" src="' + staff[i].IMAGE + '"/>');
+            _current.push('<img index="' + i + '" staff-id="' + staff[i].EMPLOYEE_ID + '" class="staff-item" src="' + staff[i].IMAGE + '"/>');
         }
         return '<li class="people"><div class="staff-list">' + _current.join('') + '</div></li>';
     })()
@@ -108,44 +108,26 @@ $('.bonus_set ul li').click(function() {
     $('.bonus_set_title').attr('reward', index);
 })
 
+
 var ing = false;
+
 $('.start').click(function() {
     var reward = $('.bonus_set_title').attr('reward');
     if (reward !== 'null') {
+
         ing = true;
+        var len = staff.length;
+        var index = 1;
+
         Event.trigger('start', {
             type: reward
         })
 
-        // var fn = function() {
-        //     $('.people').each(function() {
-        //         $(this).animate({
-        //             'top': '-10878px'
-        //         }, 4000, 'linear', function() {
-        //             $(this).css('top', 0);
-        //             fn();
-        //         });
-        //     })
-
-        // }
-        $('.staff-list').each(function() {
-            $(this).eq(0).animate({
-                'top': '-500px'
-            }, {
-                duration: 6000,
-                easing: "linear",
-                step:function(){
-                    console.log("!");
-                },
-                complete: function() {
-                    // if (index == 3) isBegin = false;
-                    console.log("!");
-                }
-            });
-        })
+        
     }
 
 })
+
 $('.stop').click(function() {
     if (ing) {
         var reward = $('.bonus_set_title').attr('rewar,d');

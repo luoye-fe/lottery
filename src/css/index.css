@@ -278,7 +278,7 @@ body {
     margin-left: 0;
     background: url(../images/ren.png);
 }
-.lottery .list li .staff-list{position: absolute;top: 0;left: 0;}
+.lottery .list li .staff-list{position: absolute;top: 0;left: 0;-webkit-transition:all linear 0.2s;}
 .lottery .list li .staff-list img{display: block;}
 .lottery .group {
     width: 974px;
@@ -320,16 +320,18 @@ body {
     width: 550px;
     left: 50%;
     margin-left: -275px;
+    text-align: center;
 }
 .btn li {
     width: 245px;
     height: 73px;
-    float: left;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
 }
 .start {
     background: url(../images/btn_start.png);
-    margin-right: 60px;
+    /*margin-right: 60px;*/
 }
 .stop {
     background: url(../images/btn_stop.png);
