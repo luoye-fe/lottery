@@ -320,16 +320,18 @@ body {
     width: 550px;
     left: 50%;
     margin-left: -275px;
+    text-align: center;
 }
 .btn li {
     width: 245px;
     height: 73px;
-    float: left;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
 }
 .start {
     background: url(../images/btn_start.png);
-    margin-right: 60px;
+    margin-right: 30px;
 }
 .stop {
     background: url(../images/btn_stop.png);
