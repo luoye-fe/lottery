@@ -1,8 +1,6 @@
 var utils = {};
 
 
-
-
 utils.confirm = function(msg, fn1, fn2) {
     if (confirm(msg)) {
         if (fn1) {

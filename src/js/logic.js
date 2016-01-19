@@ -1,13 +1,9 @@
-
-
 var utils = require('./utils.js');
 
-
+var Event = require('./event.js');
 
 var staff = require('../data/staff.json');
 var reward = require('../data/reward.json');
-
-
 
 
 var staffInfo;
@@ -88,53 +84,6 @@ var drawLottery = function(obj) {
 }
 
 
-var $ = require('jquery');
-var ease = require('./easing.js');
-var transform = require('./transform.js');
-$('#choujiang1').click(function() {
-    drawLottery({
-        type: '0'
-    })
+Event.on('start', function(obj) {
+    drawLottery(obj);
 })
-$('#choujiang2').click(function() {
-    drawLottery({
-        type: '1'
-    })
-})
-$('#choujiang3').click(function() {
-    drawLottery({
-        type: '2'
-    })
-})
-$('#choujiang4').click(function() {
-    drawLottery({
-        type: '3'
-    })
-})
-$('#choujiang5').click(function() {
-    drawLottery({
-        type: '4'
-    })
-})
-
-$('.con ul li').each(function(index, item) {
-    $(item).css({
-        "-webkit-transform": "rotateY(" + index * 360 / $('.con ul li').length + "deg) translateZ(1250px)",
-    })
-})
-
-
-$('#kashi').click(function() {
-    $('.con ul').css('transform', 'rotateY(45deg)');
-    $('.con ul').animate({
-        transform: '+=rotateY(-90deg)'
-    }, {
-        duration: '60000' 
-    },'easeInOutCirc')
-})
-
-
-
-
-
-
