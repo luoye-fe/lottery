@@ -3,11 +3,9 @@ var utils = {};
 
 utils.confirm = function(msg, fn1, fn2) {
     if (confirm(msg)) {
-        if (fn1) {
-            fn1 && fn1();
-        } else {
-            fn2 && fn2();
-        }
+        fn1 && fn1();
+    } else {
+        fn2 && fn2();
     }
 }
 

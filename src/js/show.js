@@ -72,13 +72,11 @@ $('.bonus_set_title').click(function() {
 })
 
 
-
-
 $('.bonus_set ul li').click(function() {
     var index = $(this).attr('reward');
     rewardListSwtich();
     $('.bonus_set .bonus_set_title').css({
-        'background': 'url(' + model[index]['bg'] + ') no-repeat center '
+        'background': 'url(' + reward[index]['bg'] + ') no-repeat center '
     })
     createList({
         type: index
@@ -96,27 +94,39 @@ var stage1_num = 20;
 var oneTime = 100;
 var len = staff.length;
 var allHeight = (len - 1) * oneHeight;
+var allNum = 0;
+
 
 $('.start').click(function() {
-    var rewardAttr = $('.bonus_set_title').attr('reward');
-    if (rewardAttr !== 'null') {
+    var rewardIndex = $('.bonus_set_title').attr('reward');
+
+    Event.trigger('start', {
+        type: rewardIndex
+    })
+    if (window.drawErr) {
+        return;
+    }
+
+    $('audio')[0].play();
+    allNum = 0;
+
+    if (rewardIndex !== 'null') {
 
         $('.message').html('<li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li>');
 
         ing = true;
         var len = staff.length;
-        var index = 1;
 
-        Event.trigger('start', {
-            type: rewardAttr
-        })
 
 
         $('.staff-list').each(function(index) {
+            var curHeight = parseInt($('.staff-list').eq(index).css('top'));
+
             var obj = $(this);
+            allNum = index;
             setTimeout(function() {
                 obj.animate({
-                    'top': -stage1_num * oneHeight + 'px'
+                    'top': curHeight+(-stage1_num * oneHeight) < -allHeight ? -allHeight+'px' : curHeight+(-stage1_num * oneHeight) + 'px'
                 }, {
                     duration: stage1_num * oneTime,
                     easing: "easeInQuad",
@@ -147,7 +157,8 @@ $('.start').click(function() {
 
 $('.stop').click(function() {
     if (ing) {
-        var rewardAttr = $('.bonus_set_title').attr('reward');
+        var nowNum = 0;
+        var rewardIndex = $('.bonus_set_title').attr('reward');
         Event.trigger('stop');
         ing = false;
 
@@ -156,15 +167,53 @@ $('.stop').click(function() {
             obj.stop();
         });
         var result = [];
-        for (var i = 0; i < utils.getItem(model[rewardAttr].name).length; i++) {
-            result.push($('.people').eq(i).find('[staff-id="' + utils.getItem(model[rewardAttr].name)[i].EMPLOYEE_ID + '"]'));
+        for (var i = 0; i < utils.getItem('rewrdResult')[rewardIndex].length; i++) {
+            result.push($('.people').eq(i).find('[staff-id="' + utils.getItem('rewrdResult')[rewardIndex][i].EMPLOYEE_ID + '"]'));
         }
+
+        var peopleLen = utils.getItem('staffInfo').length;
+
+
         $('.staff-list').each(function(index) {
-            $('.staff-list').eq(index).animate({
-                'top': -result[index].attr('index') * 222 + 'px'
-            }, result[index].attr('index') * 50, 'easeOutQuad', function() {
-                $('.message li').eq($('.people').eq(index).index()).html('<div>' + utils.getItem(model[rewardAttr].name)[index].empName + '</div><div>' + utils.getItem(model[reward].name)[index].EMPLOYEE_ID + '</div>')
-            })
+            //如果当前的
+            var curHeight = parseInt($('.staff-list').eq(index).css('top'));
+            var tarHeight = -(result[index].attr('index') * oneHeight);
+            var loop = 0;
+            // var time = result[index].attr('index') - (curHeight / 222);
+
+            console.log(curHeight, tarHeight);
+
+
+            if (curHeight > tarHeight) {
+                time = result[index].attr('index') - (curHeight / 222);
+
+                $('.staff-list').eq(index).animate({
+                    'top': tarHeight + 'px'
+                }, time * 100, 'easeOutQuad', function() {
+                    $('.message li').eq($('.people').eq(index).index())[0].innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>'
+                    if (allNum == nowNum) {
+                        $('audio')[0].pause();
+                    }
+                    nowNum++;
+                })
+
+            } else {
+                time = (peopleLen - curHeight / 222) + tarHeight / oneHeight;
+                $('.staff-list').eq(index).animate({
+                    'top': -allHeight + 'px'
+                }, (len - stage1_num) * 50, 'linear', function() {
+                    $('.staff-list').eq(index).css('top', '0');
+                    $('.staff-list').eq(index).animate({
+                        'top': tarHeight + 'px'
+                    }, time * 100, 'easeOutQuad', function() {
+                        $('.message li').eq($('.people').eq(index).index())[0].innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>'
+                        if (allNum == nowNum) {
+                            $('audio')[0].pause();
+                        }
+                        nowNum++;
+                    })
+                })
+            }
         })
     }
 })

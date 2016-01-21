@@ -87,18 +87,21 @@ var drawLottery = function(obj) {
         for (var i = 0; i < result.length; i++) {
             rewrdResult[type].push(result[i])
         }
-        console.log(rewrdResult);
-        console.log(staffInfo.length);
+        window.currentResult = result;
+        utils.setItem('rewrdResult',rewrdResult);
+        utils.setItem('staffInfo',staffInfo);
     } else {
         utils.confirm('您已抽过' + awards.name + '！是否重新抽取？', function() {
             var _current = rewrdResult[type];
             for (var i = 0; i < _current.length; i++) {
                 staffInfo.push(_current[i]);
             }
-            rewrdResult[type].length = 0;;
+            rewrdResult[type].length = 0;
             drawLottery(obj);
+            window.drawErr = false;
         }, function() {
-            return;
+            window.drawErr = true;
+            return false;
         })
     }
 }
@@ -117,3 +120,5 @@ var checkDraw = function(obj) {
 Event.on('start', function(obj) {
     drawLottery(obj);
 })
+
+
