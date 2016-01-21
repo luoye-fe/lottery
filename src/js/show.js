@@ -5,7 +5,7 @@ var Event = require('./event.js');
 var utils = require('./utils.js');
 
 var staff = require('../data/staff.json');
-
+var reward = require('../data/reward.json');
 
 
 var tpl = {
@@ -38,11 +38,7 @@ var createList = function(obj) {
             $('.list').html(temp);
             break;
         case '4':
-            var temp = tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList;
-            $('.list').html(temp);
-            break;
-        case '5':
-            var temp = tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList;
+            var temp = tpl.base + tpl.base + tpl.staffList + tpl.base + tpl.base;
             $('.list').html(temp);
             break;
     }
@@ -64,7 +60,7 @@ var rewardListSwtich = function() {
         }).addClass('on').removeClass('off');
         $('.bonus_set ul').css('display', 'block');
         $('.bonus_set ul').css({
-            'height': '378px',
+            'height': '316px',
             'border-top': '3px solid #ff95a8',
             'border-bottom': '3px solid #ff95a8'
         })
@@ -76,32 +72,7 @@ $('.bonus_set_title').click(function() {
 })
 
 
-var model = {
-    '0': {
-        'bg': 'src/images/yidengjiang.png',
-        'name': '一等奖'
-    },
-    '1': {
-        'bg': 'src/images/erdengjiang.png',
-        'name': '二等奖'
-    },
-    '2': {
-        'bg': 'src/images/sandengjiang.png',
-        'name': '三等奖'
-    },
-    '3': {
-        'bg': 'src/images/nuanxin1.png',
-        'name': '暖心奖1'
-    },
-    '4': {
-        'bg': 'src/images/nuanxin2.png',
-        'name': '暖心奖2'
-    },
-    '5': {
-        'bg': 'src/images/xianjin.png',
-        'name': '现金红包'
-    }
-}
+
 
 $('.bonus_set ul li').click(function() {
     var index = $(this).attr('reward');
@@ -127,8 +98,8 @@ var len = staff.length;
 var allHeight = (len - 1) * oneHeight;
 
 $('.start').click(function() {
-    var reward = $('.bonus_set_title').attr('reward');
-    if (reward !== 'null') {
+    var rewardAttr = $('.bonus_set_title').attr('reward');
+    if (rewardAttr !== 'null') {
 
         $('.message').html('<li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li>');
 
@@ -137,7 +108,7 @@ $('.start').click(function() {
         var index = 1;
 
         Event.trigger('start', {
-            type: reward
+            type: rewardAttr
         })
 
 
@@ -176,7 +147,7 @@ $('.start').click(function() {
 
 $('.stop').click(function() {
     if (ing) {
-        var reward = $('.bonus_set_title').attr('reward');
+        var rewardAttr = $('.bonus_set_title').attr('reward');
         Event.trigger('stop');
         ing = false;
 
@@ -185,14 +156,14 @@ $('.stop').click(function() {
             obj.stop();
         });
         var result = [];
-        for (var i = 0; i < utils.getItem(model[reward].name).length; i++) {
-            result.push($('.people').eq(i).find('[staff-id="' + utils.getItem(model[reward].name)[i].EMPLOYEE_ID + '"]'));
+        for (var i = 0; i < utils.getItem(model[rewardAttr].name).length; i++) {
+            result.push($('.people').eq(i).find('[staff-id="' + utils.getItem(model[rewardAttr].name)[i].EMPLOYEE_ID + '"]'));
         }
         $('.staff-list').each(function(index) {
             $('.staff-list').eq(index).animate({
                 'top': -result[index].attr('index') * 222 + 'px'
             }, result[index].attr('index') * 50, 'easeOutQuad', function() {
-                $('.message li').eq($('.people').eq(index).index()).html('<div>' + utils.getItem(model[reward].name)[index].empName + '</div><div>' + utils.getItem(model[reward].name)[index].EMPLOYEE_ID + '</div>')
+                $('.message li').eq($('.people').eq(index).index()).html('<div>' + utils.getItem(model[rewardAttr].name)[index].empName + '</div><div>' + utils.getItem(model[reward].name)[index].EMPLOYEE_ID + '</div>')
             })
         })
     }

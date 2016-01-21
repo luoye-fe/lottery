@@ -1,27 +1,32 @@
 {
     "0": {
         "name": "一等奖",
-        "number": "2"
+        "number": "2",
+        "step": "1",
+        "bg": "src/images/yidengjiang.png"
     },
     "1": {
         "name": "二等奖",
-        "number": "3"
+        "number": "3",
+        "step": "1",
+        "bg": "src/images/erdengjiang.png"
     },
     "2": {
         "name": "三等奖",
-        "number": "5"
+        "number": "5",
+        "step": "1",
+        "bg": "src/images/sandengjiang.png"
     },
     "3": {
-        "name": "暖心奖1",
-        "number": "5"
+        "name": "暖心奖",
+        "number": "10",
+        "step": "2",
+        "bg": "src/images/nuanxin.png"
     },
-
     "4": {
-        "name": "暖心奖2",
-        "number": "5"
-    },
-    "5": {
         "name": "现金红包",
-        "number": "5"
+        "number": "-1",
+        "step": "-1",
+        "bg": "src/images/xianjin.png"
     }
 }

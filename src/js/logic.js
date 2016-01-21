@@ -7,6 +7,7 @@ var reward = require('../data/reward.json');
 
 
 var staffInfo;
+var rewrdResult;
 var init = function() {
     staffInfo = null;
     if (utils.getItem('staffInfo') === null) {
@@ -15,15 +16,28 @@ var init = function() {
     } else {
         staffInfo = utils.getItem('staffInfo');
     }
+
+    if (utils.getItem('rewrdResult') === null) {
+        rewrdResult = {
+            '0': [],
+            '1': [],
+            '2': [],
+            '3': [],
+            '4': [],
+        };
+        utils.setItem('rewrdResult', rewrdResult);
+    } else {
+        rewrdResult = utils.getItem('rewrdResult');
+    }
 }
 init();
 
-
-
 window.addEventListener('beforeunload', function(e) {
     if (staffInfo !== null) {
-        // 刷新或关闭的时候写入 localStorage
         utils.setItem('staffInfo', staffInfo);
+    }
+    if (rewrdResult !== null) {
+        utils.setItem('rewrdResult', rewrdResult);
     }
     var message = "是否退出抽奖？";
     e.returnValue = message;
@@ -46,8 +60,14 @@ window.addEventListener('keyup', function(e) {
     }
 })
 
-
-var choujiang = function(arr, len) {
+var choujiang = function(arr, type) {
+    var len;
+    if (reward[type].step > 0 && reward[type].number > 0) {
+        len = reward[type].number / reward[type].step;
+    }
+    if (reward[type].step == '-1') {
+        len = 1;
+    }
     var newArr = [];
     for (var i = 0; i < len; i++) {
         var index = parseInt(Math.random() * arr.length);
@@ -59,27 +79,37 @@ var choujiang = function(arr, len) {
 }
 
 var drawLottery = function(obj) {
+    var type = obj.type;
     var awards = reward[obj.type];
     var result;
-    if (utils.getItem(awards.name) === null) {
-        result = choujiang(staffInfo, awards.number);
-        var test = [];
+    if (checkDraw(obj)) {
+        result = choujiang(staffInfo, type);
         for (var i = 0; i < result.length; i++) {
-            test.push(result[i].empName);
+            rewrdResult[type].push(result[i])
         }
-        console.log(test.join(','));
-        utils.setItem(awards.name, result);
+        console.log(rewrdResult);
+        console.log(staffInfo.length);
     } else {
         utils.confirm('您已抽过' + awards.name + '！是否重新抽取？', function() {
-            var _current = utils.getItem(awards.name);
+            var _current = rewrdResult[type];
             for (var i = 0; i < _current.length; i++) {
                 staffInfo.push(_current[i]);
             }
-            utils.removeItem(awards.name);
+            rewrdResult[type].length = 0;;
             drawLottery(obj);
         }, function() {
             return;
         })
+    }
+}
+
+var checkDraw = function(obj) {
+    var type = obj.type;
+    var awards = reward[obj.type];
+    if (rewrdResult[type].length >= awards.number && awards.number !== '-1') {
+        return false;
+    } else {
+        return true;
     }
 }
 
