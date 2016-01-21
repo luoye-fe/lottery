@@ -101,7 +101,7 @@ var drawLottery = function(obj) {
             window.drawErr = false;
         }, function() {
             window.drawErr = true;
-            return false;
+            return;
         })
     }
 }

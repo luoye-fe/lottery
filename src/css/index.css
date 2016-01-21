@@ -279,7 +279,7 @@ body {
     background: url(../images/ren.png);
 }
 .lottery .list li .staff-list{position: absolute;top: 0;left: 0;}
-.lottery .list li .staff-list img{display: block;}
+.lottery .list li .staff-list img{display: block;width: 186px;height: 222px;}
 .lottery .group {
     width: 974px;
     height: 48px;
