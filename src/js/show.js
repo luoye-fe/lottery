@@ -79,27 +79,27 @@ $('.bonus_set_title').click(function() {
 var model = {
     '0': {
         'bg': 'src/images/yidengjiang.png',
-        'name':'一等奖'
+        'name': '一等奖'
     },
     '1': {
         'bg': 'src/images/erdengjiang.png',
-        'name':'二等奖'
+        'name': '二等奖'
     },
     '2': {
         'bg': 'src/images/sandengjiang.png',
-        'name':'三等奖'
+        'name': '三等奖'
     },
     '3': {
         'bg': 'src/images/nuanxin1.png',
-        'name':'暖心奖1'
+        'name': '暖心奖1'
     },
     '4': {
         'bg': 'src/images/nuanxin2.png',
-        'name':'暖心奖2'
+        'name': '暖心奖2'
     },
     '5': {
         'bg': 'src/images/xianjin.png',
-        'name':'现金红包'
+        'name': '现金红包'
     }
 }
 
@@ -113,7 +113,7 @@ $('.bonus_set ul li').click(function() {
         type: index
     })
     $('.bonus_set_title').attr('reward', index);
-
+    $('.message').html('<li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li>');
 })
 
 
@@ -130,6 +130,8 @@ $('.start').click(function() {
     var reward = $('.bonus_set_title').attr('reward');
     if (reward !== 'null') {
 
+        $('.message').html('<li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li>');
+
         ing = true;
         var len = staff.length;
         var index = 1;
@@ -139,18 +141,20 @@ $('.start').click(function() {
         })
 
 
-        $('.staff-list').each(function() {
+        $('.staff-list').each(function(index) {
             var obj = $(this);
-            obj.animate({
-                'top': -stage1_num * oneHeight + 'px'
-            }, {
-                duration: stage1_num * oneTime,
-                easing: "easeInQuad",
-                step: function() {},
-                complete: function() {
-                    fn(obj);
-                }
-            });
+            setTimeout(function() {
+                obj.animate({
+                    'top': -stage1_num * oneHeight + 'px'
+                }, {
+                    duration: stage1_num * oneTime,
+                    easing: "easeInQuad",
+                    step: function() {},
+                    complete: function() {
+                        fn(obj);
+                    }
+                });
+            }, index * 300);
         });
 
         function fn(obj, btn) {
@@ -178,29 +182,35 @@ $('.stop').click(function() {
         Event.trigger('stop');
         ing = false;
 
-        $('.staff-list').each(function() {
-            var obj = $(this).eq(0)
+       $('.staff-list').each(function() {
+            var obj = $(this);
             obj.stop();
         });
-        for(var i = 0;i < utils.getItem(model[reward].name).length;i++){
-            console.log($('.people').eq(i).find('[staff-id="'+utils.getItem(model[reward].name)[i].EMPLOYEE_ID+'"]'));
+        var result = [];
+        for (var i = 0; i < utils.getItem(model[reward].name).length; i++) {
+            result.push($('.people').eq(i).find('[staff-id="' + utils.getItem(model[reward].name)[i].EMPLOYEE_ID + '"]'));
+
         }
+        $('.staff-list').each(function(index) {
+        	var str = $(this).eq(0).html();
+        	var n = '';
+        	for(var i = 0; i < index + 2;i++){
+        		n += str;
+        	}
+            
+            $(this).eq(0).html(n);
+        })
+        console.log( -allHeight - result[0].attr('index') * 222 + 'px')
+        $('.staff-list').each(function(index) {
+        	
+            $('.staff-list').eq(index).animate({
+                'top': -allHeight - result[index].attr('index') * 222 + 'px'
+            }, (result[index].attr('index')) * 200, 'easeOutQuad', function() {
+                $('.message li').eq($('.people').eq(index).index()).html('<div>' + utils.getItem(model[reward].name)[index].empName + '</div><div>' + utils.getItem(model[reward].name)[index].EMPLOYEE_ID + '</div>')
+            })
+        })
 
     }
-
-   /* $('.staff-list').each(function() {
-        var obj = $(this).eq(0)
-        obj.stop();
-        var x = 50;//中奖人的索引
-        obj.animate({
-            'top': -oneHeight * x + 'px'
-        }, len * 50, 'easeOutQuad', function() {
-           // obj.css('top', 0);
-            // fn(obj, true);
-        })
-    });
-
-*/
 
 
 })
