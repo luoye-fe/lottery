@@ -8,55 +8,50 @@ var staff = require('../data/staff.json');
 var reward = require('../data/reward.json');
 
 
-
-var tpl = {
-    base: '<li><img src="src/images/xiaolangren.png"></li>',
-    staffList: (function() {
-        var _current = [];
-        for (var i = 0; i < staff.length; i++) {
-            _current.push('<img index="' + i + '" staff-id="' + staff[i].EMPLOYEE_ID + '" class="staff-item" src="' + staff[i].IMAGE + '"/>');
+var html = {
+    tpl: {
+        base: '<li><img src="src/images/xiaolangren.png"></li>',
+        staffList: (function() {
+            var _current = [];
+            for (var i = 0; i < staff.length; i++) {
+                _current.push('<img index="' + i + '" staff-id="' + staff[i].EMPLOYEE_ID + '" class="staff-item" src="' + staff[i].IMAGE + '"/>');
+            }
+            return '<li class="people"><div class="staff-list">' + _current.join('') + '</div></li>';
+        })()
+    },
+    createHtml: function(htmlTpl) {
+        $('.list').html(htmlTpl);
+        $('.staff-list').each(function(index) {
+            $(this).css({
+                'top': -parseInt(Math.random() * staff.length) * 222 + 'px',
+            });
+        })
+    },
+    createList: function(obj) {
+        var type = obj.type;
+        var tpl = this.tpl;
+        switch (type) {
+            case '0':
+                var temp = tpl.base + tpl.staffList + tpl.base + tpl.staffList + tpl.base;
+                this.createHtml(temp);
+                break;
+            case '1':
+                var temp = tpl.staffList + tpl.base + tpl.staffList + tpl.base + tpl.staffList;
+                this.createHtml(temp);
+                break;
+            case '2':
+                var temp = tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList;
+                this.createHtml(temp);
+                break;
+            case '3':
+                var temp = tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList;
+                this.createHtml(temp);
+                break;
+            case '4':
+                var temp = tpl.base + tpl.base + tpl.staffList + tpl.base + tpl.base;
+                this.createHtml(temp);
+                break;
         }
-        return '<li class="people"><div class="staff-list">' + _current.join('') + '</div></li>';
-    })()
-}
-var createList = function(obj) {
-    var type = obj.type;
-    switch (type) {
-        case '0':
-            var temp = tpl.base + tpl.staffList + tpl.base + tpl.staffList + tpl.base;
-            $('.list').html(temp);
-            $('.staff-list').each(function(index) {
-                $(this).css('top', -parseInt(Math.random() * staff.length) * 222 + 'px');
-            })
-            break;
-        case '1':
-            var temp = tpl.staffList + tpl.base + tpl.staffList + tpl.base + tpl.staffList;
-            $('.list').html(temp);
-            $('.staff-list').each(function(index) {
-                $(this).css('top', -parseInt(Math.random() * staff.length) * 222 + 'px');
-            })
-            break;
-        case '2':
-            var temp = tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList;
-            $('.list').html(temp);
-            $('.staff-list').each(function(index) {
-                $(this).css('top', -parseInt(Math.random() * staff.length) * 222 + 'px');
-            })
-            break;
-        case '3':
-            var temp = tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList + tpl.staffList;
-            $('.list').html(temp);
-            $('.staff-list').each(function(index) {
-                $(this).css('top', -parseInt(Math.random() * staff.length) * 222 + 'px');
-            })
-            break;
-        case '4':
-            var temp = tpl.base + tpl.base + tpl.staffList + tpl.base + tpl.base;
-            $('.list').html(temp);
-            $('.staff-list').each(function(index) {
-                $(this).css('top', -parseInt(Math.random() * staff.length) * 222 + 'px');
-            })
-            break;
     }
 }
 
@@ -83,162 +78,90 @@ var rewardListSwtich = function() {
     }
 }
 
-$('.bonus_set_title').click(function() {
+$('.bonus_set_title').on('click', function() {
     rewardListSwtich();
 })
 
 
-$('.bonus_set ul li').click(function() {
+$('.bonus_set ul li').on('click', function() {
     window.drawErr = false;
     var index = $(this).attr('reward');
     rewardListSwtich();
     $('.bonus_set .bonus_set_title').css({
         'background': 'url(' + reward[index]['bg'] + ') no-repeat center '
     })
-    createList({
+    html.createList({
         type: index
     })
     $('.bonus_set_title').attr('reward', index);
     $('.message').html('<li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li>');
 })
 
-
-var ing = false;
-
-
-var oneHeight = 222;
-var stage1_num = 20;
-var oneTime = 200;
-var len = staff.length;
-var allHeight = (len - 1) * oneHeight;
-var allNum = 0;
-
-
-$('.start').click(function() {
-
-    var rewardIndex = $('.bonus_set_title').attr('reward');
-    if (rewardIndex !== 'null' && !ing) {
-
-        Event.trigger('start', {
-            type: rewardIndex
-        })
-
-        if (window.drawErr) {
+// staff-list 动画
+var ani = {
+    oneTime: 100, // 每人动画时间 100ms
+    ing: false,
+    oneHeight: 222,
+    staffLen: staff.length,
+    loopStat: false,
+    linearLoopAni: function() { // 循环匀速运行
+        var _this = this;
+        if (!this.loopStat) {
             return;
         }
-
-        $('audio')[0].play();
-
-        allNum = 0;
-
-        $('.message').html('<li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li>');
-
-        ing = true;
-        var len = staff.length;
-
         $('.staff-list').each(function(index) {
-            var curHeight = parseInt($('.staff-list').eq(index).css('top'));
-
-            var obj = $(this);
-            allNum = index;
-            setTimeout(function() {
-                obj.animate({
-                    'top': curHeight + (-stage1_num * oneHeight) < -allHeight ? -allHeight + 'px' : curHeight + (-stage1_num * oneHeight) + 'px'
-                }, {
-                    duration: curHeight + (-stage1_num * oneHeight) < -allHeight ? (allHeight - Math.abs(curHeight)) / oneHeight * oneTime : stage1_num * oneTime,
-                    easing: "easeInQuad",
-                    step: function() {},
-                    complete: function() {
-                        obj.css('top', 0);
-                        fn(obj);
-                    }
-                });
-            }, index * 500);
-        });
-
-        function fn(ele) {
-            ele.animate({
-                'top': -allHeight + 'px'
-            }, 20 * oneTime, 'linear', function() {
-                ele.css('top', 0);
-                fn(ele, true);
+            $(this).animate({
+                'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
+            }, _this.oneTime * _this.staffLen, 'linear', function() {
+                $(this).css('top', '0');
+                _this.linearLoopAni();
             })
-        }
-    }
+        })
+    },
+    easeInAni: function(cb) { // 加速运行到最底部
+        var _this = this;
+        $('.staff-list').each(function(index) {
+            var staffIndex = Math.abs(parseInt($(this).css('top')) / ani.oneHeight);
+            var diffIndex = ani.staffLen - 1 - staffIndex;
+            if (diffIndex < 20) {
+                $(this).css('top', -ani.oneHeight * (staffIndex - 20));
+                staffIndex = staffIndex - 20;
+            }
+            $(this).animate({
+                'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
+            }, _this.oneTime * (_this.staffLen - staffIndex), 'easeInQuad', function() {
+                $(this).stop();
+                $(this).css('top', '0');
+                cb && cb();
+            })
+        })
+    },
+    easeOutAni: function() {
 
+    }
+}
+
+
+$('.start').on('click', function() {
+    if (ani.ing) {
+        return;
+    }
+    ani.ing = true;
+    ani.loopStat = true;
+    ani.easeInAni(function(){
+        ani.linearLoopAni();
+    });
 })
 
-$('.stop').click(function() {
-    if (ing) {
-        var nowNum = 0;
-        var rewardIndex = $('.bonus_set_title').attr('reward');
-        Event.trigger('stop');
-
-        ing = false;
-
-        var peopleLen = utils.getItem('staffInfo').length;
-
-        $('.staff-list').each(function(index) {
 
 
-            var obj = $(this);
-            obj.stop();
-
-            var tarHeight = -($('[staff-id="' + window.currentResult[index].EMPLOYEE_ID + '"]').attr('index') * oneHeight);
-
-
-            var curHeight = parseInt($('.staff-list').eq(index).css('top'));
-
-
-            var diff = Math.abs(Math.abs(tarHeight) - Math.abs(curHeight));
-
-
-
-            var noLoop = function(index) {
-                $('.staff-list').eq(index).animate({
-                    'top': tarHeight + 'px'
-                }, 7000 + index * 100, 'easeOutQuad', function() {
-                    $('.message li').eq($('.people').eq(index).index())[0].innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>'
-                    if (allNum == nowNum) {
-                        $('audio')[0].pause();
-                    }
-                    nowNum++;
-                })
-            }
-
-
-
-            var loop = function(index) {
-                $('.staff-list').eq(index).animate({
-                    'top': -allHeight + 'px'
-                }, 20 * oneTime / (staff.length - $('[staff-id="' + window.currentResult[index].EMPLOYEE_ID + '"]').attr('index')), 'linear', function() {
-                    $('.staff-list').css('top', 0);
-                    $('.staff-list').eq(index).animate({
-                        'top': tarHeight + 'px'
-                    }, 7000 + index * 100 - 10 * oneTime, 'easeOutQuad', function() {
-                        $('.message li').eq($('.people').eq(index).index())[0].innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>'
-                        if (allNum == nowNum) {
-                            $('audio')[0].pause();
-                        }
-                        nowNum++;
-                    })
-                })
-            }
-
-            if (curHeight > tarHeight) {
-                if (diff < allHeight / 2) {
-                    obj.css('top', '0');
-                }
-                noLoop(index);
-            } else {
-                if (Math.abs(tarHeight) < allHeight / 2) {
-                    loop(index);
-                } else {
-                    obj.css('top', '0');
-                    noLoop(index);
-                }
-            }
-        })
-
+$('.stop').on('click', function() {
+    if (!ani.ing) {
+        return;
     }
+    ani.ing = false;
+    ani.loopStat = false;
+    $('.staff-list').each(function(index) {
+        $(this).stop();
+    })
 })
