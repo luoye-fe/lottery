@@ -99,22 +99,24 @@ body {
     height: 100%;
 }
 .suisui {
-    width: 1886px;
+    width: 100%;
     height: 546px;
     position: absolute;
     top: 240px;
     left: 50%;
-    margin-left: -993px;
+    -webkit-transform: translateX(-50%);
     background: url(../images/suipian.png);
     background-size: cover;
+    overflow: hidden;
 }
 .saqian {
-    width: 1566px;
+    width: 100%;
     height: 915px;
     background: url(../images/saqian.png);
     position: absolute;
     left: 50%;
-    margin-left: -783px;
+    -webkit-transform: translateX(-50%);
+    overflow: hidden;
 }
 
 /*
@@ -303,7 +305,6 @@ body {
     margin-left: 0;
     /*background: url(../images/ren.png);*/
 }
-
 .lottery .list li .staff-list {
     position: absolute;
     top: 0;
@@ -385,7 +386,6 @@ body {
     height: 33px;
     position: absolute;
     left: 50%;
-    margin-left: -196px;
-    bottom: 32px;
+    -webkit-transform: translateX(-50%);
     background: url(../images/logo.png) no-repeat;
 }

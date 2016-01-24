@@ -145,7 +145,7 @@ var ani = {
             } else {
                 ele.animate({
                     'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
-                }, (_this.staffLen - 1 - targetIndex) * _this.oneTime, 'linear', function() {
+                }, (_this.staffLen - 1 - currentIndex) * _this.oneTime, 'linear', function() {
                     ele.css('top', '0');
                     ele.animate({
                         'top': targetTop + 'px'
