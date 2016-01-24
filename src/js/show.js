@@ -8,6 +8,7 @@ var staff = require('../data/staff.json');
 var reward = require('../data/reward.json');
 
 
+
 var tpl = {
     base: '<li><img src="src/images/xiaolangren.png"></li>',
     staffList: (function() {
@@ -116,7 +117,6 @@ var allNum = 0;
 $('.start').click(function() {
 
     var rewardIndex = $('.bonus_set_title').attr('reward');
-
     if (rewardIndex !== 'null' && !ing) {
 
         Event.trigger('start', {
@@ -159,7 +159,7 @@ $('.start').click(function() {
         function fn(ele) {
             ele.animate({
                 'top': -allHeight + 'px'
-            }, 10 * oneTime, 'linear', function() {
+            }, 20 * oneTime, 'linear', function() {
                 ele.css('top', 0);
                 fn(ele, true);
             })
@@ -180,21 +180,64 @@ $('.stop').click(function() {
 
         $('.staff-list').each(function(index) {
 
+
             var obj = $(this);
             obj.stop();
-            obj.css('top', '0');
 
             var tarHeight = -($('[staff-id="' + window.currentResult[index].EMPLOYEE_ID + '"]').attr('index') * oneHeight);
-            $('.staff-list').eq(index).animate({
-                'top': tarHeight + 'px'
-            }, -tarHeight / oneHeight * 300, 'easeOutQuad', function() {
-                $('.message li').eq($('.people').eq(index).index())[0].innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>'
-                if (allNum == nowNum) {
-                    $('audio')[0].pause();
-                }
-                nowNum++;
-            })
 
+
+            var curHeight = parseInt($('.staff-list').eq(index).css('top'));
+
+
+            var diff = Math.abs(Math.abs(tarHeight) - Math.abs(curHeight));
+
+
+
+            var noLoop = function(index) {
+                $('.staff-list').eq(index).animate({
+                    'top': tarHeight + 'px'
+                }, 7000 + index * 100, 'easeOutQuad', function() {
+                    $('.message li').eq($('.people').eq(index).index())[0].innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>'
+                    if (allNum == nowNum) {
+                        $('audio')[0].pause();
+                    }
+                    nowNum++;
+                })
+            }
+
+
+
+            var loop = function(index) {
+                $('.staff-list').eq(index).animate({
+                    'top': -allHeight + 'px'
+                }, 20 * oneTime / (staff.length - $('[staff-id="' + window.currentResult[index].EMPLOYEE_ID + '"]').attr('index')), 'linear', function() {
+                    $('.staff-list').css('top', 0);
+                    $('.staff-list').eq(index).animate({
+                        'top': tarHeight + 'px'
+                    }, 7000 + index * 100 - 10 * oneTime, 'easeOutQuad', function() {
+                        $('.message li').eq($('.people').eq(index).index())[0].innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>'
+                        if (allNum == nowNum) {
+                            $('audio')[0].pause();
+                        }
+                        nowNum++;
+                    })
+                })
+            }
+
+            if (curHeight > tarHeight) {
+                if (diff < allHeight / 2) {
+                    obj.css('top', '0');
+                }
+                noLoop(index);
+            } else {
+                if (Math.abs(tarHeight) < allHeight / 2) {
+                    loop(index);
+                } else {
+                    obj.css('top', '0');
+                    noLoop(index);
+                }
+            }
         })
 
     }

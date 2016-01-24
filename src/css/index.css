@@ -91,14 +91,6 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 .hide {
     display: none
 }
-@keyframes change {
-    0% {
-        background: url(../images/lightning_1.png);
-    }
-    100% {
-        background: url(../images/lightning_2.png);
-    }
-}
 body {
     background: url(../images/bg.png);
     background-size: cover;
@@ -126,7 +118,7 @@ body {
 }
 
 /*
-	主要部分
+    主要部分
 */
 
 #main {
@@ -191,17 +183,32 @@ body {
     background: url(../images/choujiang_bg.png);
     position: relative;
 }
-.change {
+.change1 {
     width: 1157px;
     height: 402px;
     position: absolute;
     left: 50%;
     margin-left: -579px;
-    animation: change 0.2s infinite alternate;
+    animation: change 0.8s linear 0.2s infinite;
+    background: url('../images/lightning_1.png')
+}
+.change2 {
+    width: 1157px;
+    height: 402px;
+    position: absolute;
+    left: 50%;
+    margin-left: -579px;
+    animation: change 0.8s linear 1s infinite;
+    background: url('../images/lightning_2.png')
+}
+@keyframes change {
+    0% {opacity: 0.5;}
+    50% {opacity: 1;}
+    100% {opacity: 0.5;}
 }
 
 /*
-	奖项设置
+    奖项设置
 */
 
 .bonus_set {
@@ -212,17 +219,23 @@ body {
     margin-left: -122px;
     top: 20px;
     z-index: 4;
-    background:url(../images/bonus_set.png) no-repeat;
+    background: url(../images/bonus_set.png) no-repeat;
 }
 .bonus_set .bonus_set_title {
     height: 100%;
     cursor: pointer;
     position: relative;
-    background:url(../images/bonus_set_title.png) no-repeat center;
+    background: url(../images/bonus_set_title.png) no-repeat center;
     z-index: 2;
 }
-.bonus_set .bonus_set_title .triangle{display: block;position: absolute;top: 50%;-webkit-transform:translateY(-50%) rotate(-90deg);right: 15px;-webkit-transition:all ease 0.3s;}
-
+.bonus_set .bonus_set_title .triangle {
+    display: block;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%) rotate(-90deg);
+    right: 15px;
+    -webkit-transition: all ease 0.3s;
+}
 .bonus_set ul {
     background: url(../images/bonus_set_bg.png);
     border-left: 3px solid #ff95a8;
@@ -231,7 +244,7 @@ body {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    -webkit-transition:all ease 0.5s;
+    -webkit-transition: all ease 0.5s;
     margin-top: -3px;
 }
 .bonus_set li {
@@ -240,13 +253,19 @@ body {
     position: relative;
     cursor: pointer;
 }
-.bonus_set li img{display: block;position: absolute;top: 50%;left: 50%;-webkit-transform:translate(-50%,-50%);}
+.bonus_set li img {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+}
 .bonus_set li:hover {
     background-color: #fc4f71;
 }
 
 /*
-	抽奖
+    抽奖
 */
 
 .lottery {
@@ -278,8 +297,16 @@ body {
     margin-left: 0;
     background: url(../images/ren.png);
 }
-.lottery .list li .staff-list{position: absolute;top: 0;left: 0;}
-.lottery .list li .staff-list img{display: block;width: 186px;height: 222px;}
+.lottery .list li .staff-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.lottery .list li .staff-list img {
+    display: block;
+    width: 186px;
+    height: 222px;
+}
 .lottery .group {
     width: 974px;
     height: 48px;
@@ -288,10 +315,14 @@ body {
     left: 16px;
     top: 103px;
 }
-.lottery .message {font-size: 0;margin-top: 71px;}
+.lottery .message {
+    font-size: 0;
+    margin-top: 71px;
+}
 .lottery .message li {
     margin-left: 11px;
-    display: inline-block;vertical-align: top;
+    display: inline-block;
+    vertical-align: top;
     color: #f6d021;
 }
 .lottery .message li:nth-child(1) {
@@ -300,7 +331,7 @@ body {
 .lottery .message li div {
     width: 186px;
     height: 48px;
-    background: rgba(243,0,49,1);
+    background: rgba(243, 0, 49, 1);
     font-size: 18px;
     text-align: center;
     line-height: 48px;
@@ -310,7 +341,7 @@ body {
 }
 
 /*
-	开始，暂停按钮
+    开始，暂停按钮
 */
 
 .btn {

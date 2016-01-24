@@ -60,7 +60,7 @@ window.addEventListener('keyup', function(e) {
     }
 })
 
-var choujiang = function(arr, type) {
+var Zwes = function(arr, type) {
     var len;
     if (reward[type].step > 0 && reward[type].number > 0) {
         len = reward[type].number / reward[type].step;
@@ -83,7 +83,7 @@ var drawLottery = function(obj) {
     var awards = reward[obj.type];
     var result;
     if (checkDraw(obj)) {
-        result = choujiang(staffInfo, type);
+        result = Zwes(staffInfo, type);
         for (var i = 0; i < result.length; i++) {
             rewrdResult[type].push(result[i])
         }
