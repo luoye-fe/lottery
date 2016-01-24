@@ -95,25 +95,71 @@ var ani = {
     },
     easeInAni: function(ele, cb) { // 加速运行到最底部
         var _this = this;
-        var staffIndex = Math.round(Math.abs(parseInt(ele.css('top')) / ani.oneHeight));
+        var currentIndex = Math.round(Math.abs(parseInt(ele.css('top')) / ani.oneHeight));
         ele.animate({
             'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
-        }, _this.oneTime * (_this.staffLen - staffIndex), 'easeInQuad', function() {
+        }, _this.oneTime * (_this.staffLen - currentIndex), 'easeInQuad', function() {
             ele.css('top', '0');
             cb && cb(ele);
         })
     },
-    easeOutAni: function(ele) {
+    easeOutAni: function(ele, cb) { // 减速运行到目标位置
         var _this = this;
-        var counter = 0;
-        var staffIndex = Math.round(Math.abs(parseInt(ele.css('top')) / ani.oneHeight));
-        
+        var index = ele.index('.staff-list');
+        var currentTop = ele.css('top');
+        var currentIndex = Math.round(Math.abs(parseInt(currentTop) / ani.oneHeight));
+        var targetTop = -($('[staff-id="' + window.currentResult[index].EMPLOYEE_ID + '"]').attr('index') * ani.oneHeight);
+        var targetIndex = $('[staff-id="' + window.currentResult[index].EMPLOYEE_ID + '"]').attr('index');
+        var resultCon = $('.message li').eq($('.people').eq(index).index())[0];
+        var diff = Math.abs(targetIndex - currentIndex);
+        if (targetIndex > currentIndex) {
+            if (diff > 20) {
+                ele.animate({
+                    'top': targetTop + 'px'
+                }, diff * ani.oneTime, 'easeOutQuad', function() {
+                    resultCon.innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>';
+                    cb && cb();
+                })
+            } else {
+                if (targetIndex < 20) {
+                    ele.css('top', '0');
+                } else {
+                    ele.css('top', -(targetIndex - 20) * _this.oneHeight);
+                }
+                ele.animate({
+                    'top': targetTop + 'px'
+                }, (diff + 20) * ani.oneTime, 'easeOutQuad', function() {
+                    resultCon.innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>';
+                    cb && cb();
+                })
+            }
+        } else {
+            if (diff < _this.staffLen / 2) {
+                ele.css('top', '0');
+                ele.animate({
+                    'top': targetTop + 'px'
+                }, targetIndex * ani.oneTime, 'easeOutQuad', function() {
+                    resultCon.innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>';
+                    cb && cb();
+                })
+            } else {
+                ele.animate({
+                    'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
+                }, (_this.staffLen - 1 - targetIndex) * _this.oneTime, 'linear', function() {
+                    ele.css('top', '0');
+                    ele.animate({
+                        'top': targetTop + 'px'
+                    }, targetIndex * ani.oneTime, 'easeOutQuad', function() {
+                        resultCon.innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>';
+                        cb && cb();
+                    })
+                })
+            }
+        }
+
     }
 }
 
-var extra = {
-
-}
 
 
 $('.bonus_set_title').on('click', function() {
@@ -137,17 +183,31 @@ $('.bonus_set ul li').on('click', function() {
 
 
 $('.start').on('click', function() {
-    if (ani.ing) {
+    var rewardIndex = $('.bonus_set_title').attr('reward');
+    if (ani.ing && rewardIndex == 'null') {
         return;
     }
     ani.ing = true;
-    $('.staff-list').each(function(index) {
-        var ele = $(this);
-        ani.easeInAni(ele, function(ele) {
-            ani.linearLoopAni(ele);
-        });
+
+    Event.trigger('start', {
+        type: rewardIndex
     })
 
+    if (window.drawErr) {
+        return;
+    }
+
+    $('.message').html('<li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li>');
+
+    $('audio')[0].play();
+    $('.staff-list').each(function(index) {
+        var ele = $(this);
+        setTimeout(function() {
+            ani.easeInAni(ele, function(ele) {
+                ani.linearLoopAni(ele);
+            });
+        }, index * 300);
+    })
 })
 
 
@@ -156,13 +216,17 @@ $('.stop').on('click', function() {
     if (!ani.ing) {
         return;
     }
-    ani.ing = false;
+    var counter = 0;
     $('.staff-list').each(function(index) {
         var ele = $(this);
         ele.stop();
-        ani.easeOutAni(ele);
+        ani.easeOutAni(ele, function() {
+            counter++;
+            if (counter === $('.staff-list').length) {
+                ani.ing = false;
+                $('audio')[0].pause();
+            }
+        });
     })
-
-
 
 })
