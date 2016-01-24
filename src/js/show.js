@@ -78,6 +78,44 @@ var rewardListSwtich = function() {
     }
 }
 
+// staff-list 动画
+var ani = {
+    oneTime: 100, // 每人动画时间 100ms
+    ing: false,
+    oneHeight: 222,
+    staffLen: staff.length,
+    linearLoopAni: function(ele) { // 循环匀速运行
+        var _this = this;
+        ele.animate({
+            'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
+        }, _this.oneTime * _this.staffLen, 'linear', function() {
+            ele.css('top', '0');
+            _this.linearLoopAni(ele);
+        })
+    },
+    easeInAni: function(ele, cb) { // 加速运行到最底部
+        var _this = this;
+        var staffIndex = Math.round(Math.abs(parseInt(ele.css('top')) / ani.oneHeight));
+        ele.animate({
+            'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
+        }, _this.oneTime * (_this.staffLen - staffIndex), 'easeInQuad', function() {
+            ele.css('top', '0');
+            cb && cb(ele);
+        })
+    },
+    easeOutAni: function(ele) {
+        var _this = this;
+        var counter = 0;
+        var staffIndex = Math.round(Math.abs(parseInt(ele.css('top')) / ani.oneHeight));
+        
+    }
+}
+
+var extra = {
+
+}
+
+
 $('.bonus_set_title').on('click', function() {
     rewardListSwtich();
 })
@@ -97,60 +135,19 @@ $('.bonus_set ul li').on('click', function() {
     $('.message').html('<li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li><li><div>***</div><div>*****</div></li>');
 })
 
-// staff-list 动画
-var ani = {
-    oneTime: 100, // 每人动画时间 100ms
-    ing: false,
-    oneHeight: 222,
-    staffLen: staff.length,
-    loopStat: false,
-    linearLoopAni: function() { // 循环匀速运行
-        var _this = this;
-        if (!this.loopStat) {
-            return;
-        }
-        $('.staff-list').each(function(index) {
-            $(this).animate({
-                'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
-            }, _this.oneTime * _this.staffLen, 'linear', function() {
-                $(this).css('top', '0');
-                _this.linearLoopAni();
-            })
-        })
-    },
-    easeInAni: function(cb) { // 加速运行到最底部
-        var _this = this;
-        $('.staff-list').each(function(index) {
-            var staffIndex = Math.abs(parseInt($(this).css('top')) / ani.oneHeight);
-            var diffIndex = ani.staffLen - 1 - staffIndex;
-            if (diffIndex < 20) {
-                $(this).css('top', -ani.oneHeight * (staffIndex - 20));
-                staffIndex = staffIndex - 20;
-            }
-            $(this).animate({
-                'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
-            }, _this.oneTime * (_this.staffLen - staffIndex), 'easeInQuad', function() {
-                $(this).stop();
-                $(this).css('top', '0');
-                cb && cb();
-            })
-        })
-    },
-    easeOutAni: function() {
-
-    }
-}
-
 
 $('.start').on('click', function() {
     if (ani.ing) {
         return;
     }
     ani.ing = true;
-    ani.loopStat = true;
-    ani.easeInAni(function(){
-        ani.linearLoopAni();
-    });
+    $('.staff-list').each(function(index) {
+        var ele = $(this);
+        ani.easeInAni(ele, function(ele) {
+            ani.linearLoopAni(ele);
+        });
+    })
+
 })
 
 
@@ -160,8 +157,12 @@ $('.stop').on('click', function() {
         return;
     }
     ani.ing = false;
-    ani.loopStat = false;
     $('.staff-list').each(function(index) {
-        $(this).stop();
+        var ele = $(this);
+        ele.stop();
+        ani.easeOutAni(ele);
     })
+
+
+
 })
