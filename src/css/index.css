@@ -124,7 +124,7 @@ body {
 */
 
 #main {
-    width: 1172px;
+    width: 100%;
     position: relative;
     margin: 0px auto;
 }
@@ -132,6 +132,7 @@ body {
     width: 1172px;
     height: 250px;
     position: relative;
+    margin: 0px auto;
 }
 .zhubiao {
     width: 571px;
@@ -184,6 +185,7 @@ body {
     height: 613px;
     background: url(../images/choujiang_bg.png);
     position: relative;
+    margin: 0px auto;
 }
 .change1 {
     width: 1157px;
@@ -303,7 +305,6 @@ body {
 }
 .lottery .list li:nth-child(1) {
     margin-left: 0;
-    /*background: url(../images/ren.png);*/
 }
 .lottery .list li .staff-list {
     position: absolute;

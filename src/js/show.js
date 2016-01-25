@@ -88,7 +88,7 @@ var ani = {
         var _this = this;
         ele.animate({
             'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
-        }, _this.oneTime * _this.staffLen, 'linear', function() {
+        }, _this.oneTime * (_this.staffLen - 1), 'linear', function() {
             ele.css('top', '0');
             _this.linearLoopAni(ele);
         })

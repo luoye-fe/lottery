@@ -72,7 +72,6 @@ var Zwes = function(arr, type) {
     for (var i = 0; i < len; i++) {
         var index = parseInt(Math.random() * arr.length);
         newArr.push(arr[index]);
-        // 把抽过奖的从 staffInfo 中剔除
         arr.splice(index, 1);
     }
     return newArr;
@@ -88,8 +87,8 @@ var drawLottery = function(obj) {
             rewrdResult[type].push(result[i])
         }
         window.currentResult = result;
-        utils.setItem('rewrdResult',rewrdResult);
-        utils.setItem('staffInfo',staffInfo);
+        utils.setItem('rewrdResult', rewrdResult);
+        utils.setItem('staffInfo', staffInfo);
     } else {
         utils.confirm('您已抽过' + awards.name + '！是否重新抽取？', function() {
             var _current = rewrdResult[type];
@@ -116,9 +115,6 @@ var checkDraw = function(obj) {
     }
 }
 
-
 Event.on('start', function(obj) {
     drawLottery(obj);
 })
-
-
