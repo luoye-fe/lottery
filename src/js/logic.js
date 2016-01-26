@@ -44,9 +44,9 @@ window.addEventListener('beforeunload', function(e) {
     return message;
 });
 
-// ctrl+shift+i 初始化抽奖程序
+// ctrl+shift+alt+i 初始化抽奖程序
 window.addEventListener('keyup', function(e) {
-    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+    if (e.ctrlKey && e.shiftKey && e.altKey && e.keyCode === 73) {
         utils.confirm('是否初始化抽奖程序？', function() {
             for (i in localStorage) {
                 staffInfo = null;
