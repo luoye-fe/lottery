@@ -80,10 +80,11 @@ var rewardListSwtich = function() {
 
 // staff-list 动画
 var ani = {
-    oneTime: 100, // 每人动画时间 100ms
+    oneTime: 50, // 每人动画时间 100ms
     ing: false,
     oneHeight: 222,
     staffLen: staff.length,
+    extraTime:100,
     linearLoopAni: function(ele) { // 循环匀速运行
         var _this = this;
         ele.animate({
@@ -116,7 +117,7 @@ var ani = {
             if (diff > 20) {
                 ele.animate({
                     'top': targetTop + 'px'
-                }, diff * ani.oneTime, 'easeOutQuad', function() {
+                }, diff * ani.extraTime, 'easeOutQuad', function() {
                     resultCon.innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>';
                     cb && cb();
                 })
@@ -128,7 +129,7 @@ var ani = {
                 }
                 ele.animate({
                     'top': targetTop + 'px'
-                }, (diff + 20) * ani.oneTime, 'easeOutQuad', function() {
+                }, (diff + 20) * ani.extraTime, 'easeOutQuad', function() {
                     resultCon.innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>';
                     cb && cb();
                 })
@@ -138,18 +139,18 @@ var ani = {
                 ele.css('top', '0');
                 ele.animate({
                     'top': targetTop + 'px'
-                }, targetIndex * ani.oneTime, 'easeOutQuad', function() {
+                }, targetIndex * ani.extraTime, 'easeOutQuad', function() {
                     resultCon.innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>';
                     cb && cb();
                 })
             } else {
                 ele.animate({
                     'top': -_this.oneHeight * (_this.staffLen - 1) + 'px'
-                }, (_this.staffLen - 1 - currentIndex) * _this.oneTime, 'linear', function() {
+                }, (_this.staffLen - 1 - currentIndex) * _this.extraTime, 'linear', function() {
                     ele.css('top', '0');
                     ele.animate({
                         'top': targetTop + 'px'
-                    }, targetIndex * ani.oneTime, 'easeOutQuad', function() {
+                    }, targetIndex * ani.extraTime, 'easeOutQuad', function() {
                         resultCon.innerHTML = '<div>' + window.currentResult[index].empName + '</div><div>' + window.currentResult[index].EMPLOYEE_ID + '</div>';
                         cb && cb();
                     })
