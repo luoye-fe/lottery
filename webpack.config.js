@@ -24,9 +24,6 @@ module.exports = {
         }, {
             test: /.js$/,
             loader: 'jsx-loader?harmony'
-        }, {
-            test: /.(png|jpg)$/,
-            loader: 'url-loader?limit=8192'
         },{
             test: /.json$/,
             loader: 'json-loader'

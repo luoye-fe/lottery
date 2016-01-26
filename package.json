@@ -11,11 +11,10 @@
   "devDependencies": {
     "css": "^2.2.1",
     "css-loader": "^0.23.1",
+    "jsx-loader":"^0.13.2",
     "file-loader": "^0.8.5",
-    "jsx-loader": "^0.13.2",
     "style": "0.0.3",
     "style-loader": "^0.13.0",
-    "url-loader": "^0.5.7",
     "webpack": "^1.12.9"
   },
   "dependencies": {
